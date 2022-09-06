@@ -1,0 +1,8 @@
+[] fix delete confirmation
+[] fetch dashboard data
+[] add cars and etc
+[] auth in vue 
+[] pick modal for the car and customer in service ticket
+[] pick modal for the car and customer in invoice
+[] edit modal in cars and etc
+[] print function in invoice

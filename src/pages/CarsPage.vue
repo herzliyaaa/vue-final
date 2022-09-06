@@ -63,7 +63,7 @@ export default {
         return {
             value: '',
             fields: [
-                { key: "ID", label: "ID" },
+                { key: "car_id", label: "ID" },
                 { key: "serial_number", label: "Serial Number" },
                 { key: "brand", label: "Brand" },
                 { key: "model", label: "Model" },

@@ -89,7 +89,7 @@ export default {
         return {
             modalShow: false,
             fields: [
-                { key: "ID", label: "ID" },
+                { key: "customer_id", label: "ID" },
                 { key: "firstname", label: "First Name" },
                 { key: "lastname", label: "Last Name" },
                 { key: "contact", label: "Phone Number" },
