@@ -1,5 +1,4 @@
 <template>
-
   <body>
     <b-container fluid>
       <b-row id="header" class="d-flex justify-content-center">
@@ -17,41 +16,89 @@
           </div>
         </b-container>
       </b-row>
+      <form>
+        <b-row fluid>
+          <b-col
+            cols="12"
+            md="12"
+            lg="5"
+            class="left d-flex justify-content-center"
+          >
+            <b-col cols="8" class="d-flex flex-column align-items-center">
+              <img src="../assets/img/lougeh.png" alt="" class="lou-geh" />
+              <h1>LOGIN</h1>
+              <h2>Log In your account here</h2>
+              <br />
 
-      <b-row fluid>
-        <b-col cols="12" md="12" lg="5" class="left d-flex justify-content-center">
-          <b-col cols="8" class="d-flex flex-column align-items-center">
-            <img src="../assets/img/lougeh.png" alt="" class="lou-geh" />
-            <h1>LOGIN</h1>
-            <h2>Log In your account here</h2>
-            <br />
-            <div class="mt-3 d-flex justify-content-center">
-              <b-form class="d-flex flex-column">
-                <!-- <b-form class="d-flex flex-column" action="" @submit="login()">
+              <LoginInputComponent />
+              <!-- <div class="mt-3 d-flex justify-content-center">
+                <b-form class="d-flex flex-column"> -->
+              <!-- <b-form class="d-flex flex-column" action="" @submit="login()">
                           <LoginInputComponent v-model="id_number" label="ID Number" type="text" placeholder="Enter ID Number" />
                           <LoginInputComponent v-model="password" label="Password" type="password" placeholder="Enter Password" />         
                 </b-form> -->
-                <LoginInputComponent label="ID Number" type="text" placeholder="Enter ID Number" />
-                <LoginInputComponent label="Password" type="password" placeholder="Enter Password" />
-                <br />
-                <div class="d-flex justify-content-center">
-                  <a href="./dashboard" class="col-6 btn btn-block">LOG IN</a>
-                </div>
-              </b-form>
-            </div>
+              <!-- <LoginInputComponent
+                    label="ID Number"
+                    value="email"
+                    name="email"
+                    type="text"
+                    placeholder="Enter ID Number"
+                  />
+                  <LoginInputComponent
+                    label="Password"
+                    type="password"
+                    name="password"
+                    value="password"
+                    placeholder="Enter Password"
+                  /> -->
+
+              <!-- <input
+                    label="ID Number"
+                    v-model="email"
+                    name="email"
+                    type="text"
+                    placeholder="Enter ID Number"
+                  />
+                  <input
+                    label="Password"
+                    type="password"
+                    name="password"
+                    v-model="password"
+                    placeholder="Enter Password"
+                  />
+
+                  <br />
+                  <div class="d-flex justify-content-center">
+                    <button type="button" @click="handleLogin" class="col-6 btn btn-block">
+                      LOG IN
+                    </button>
+                  </div>
+                </b-form> -->
+              <!-- <div class="d-flex justify-content-center">
+                  <button @click="handleLogin" class="col-12 btn btn-block">
+                    LOG IN
+                  </button>
+                </div> -->
+              <!-- </div> -->
+            </b-col>
           </b-col>
-        </b-col>
-        <b-col cols="12" md="12" lg="7" class="right d-flex justify-content-center align-items-center">
-          <img src="../assets/img/car.svg" alt="" class="car" />
-        </b-col>
-      </b-row>
+          <b-col
+            cols="12"
+            md="12"
+            lg="7"
+            class="right d-flex justify-content-center align-items-center"
+          >
+            <img src="../assets/img/car.svg" alt="" class="car" />
+          </b-col>
+        </b-row>
+      </form>
     </b-container>
   </body>
 </template>
 
 <script>
+// import LoginInputComponent from "../components/LoginInputComponent.vue";
 import LoginInputComponent from "../components/LoginInputComponent.vue";
-
 export default {
   name: "LogIn",
   components: {
@@ -59,10 +106,42 @@ export default {
   },
   data() {
     return {
-      id_number: "",
-      password: ""
-    }
-  }
+      email: "",
+      password: "",
+    };
+  },
+
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+
+  methods: {
+    handleLogin() {
+      const user = { email: this.email, password: this.password };
+      this.$store.dispatch("login", user);
+
+      console.log("TEST LOG", this.email, this.password);
+      // if (this.email && this.password) {
+      //   this.$store.dispatch("login", user).then(
+      //     () => {
+      //       console.log("TEST LOG", this.email, this.password);
+      //       this.$router.push("/dashboard");
+      //     },
+      //     (error) => {
+      //       this.loading = false;
+      //       this.message =
+      //         (error.response &&
+      //           error.response.data &&
+      //           error.response.data.message) ||
+      //         error.message ||
+      //         error.toString();
+      //     }
+      //   );
+      // }
+    },
+  },
 };
 </script>
 
@@ -115,7 +194,6 @@ body {
 }
 
 @media (max-width: 1080px) {
-
   .navbar a,
   .navbar a:focus {
     color: var(--primary-color);
@@ -136,7 +214,7 @@ body {
 .navbar a:hover,
 .navbar .active,
 .navbar .active:focus,
-.navbar li:hover>a {
+.navbar li:hover > a {
   color: var(--primary-color);
 }
 

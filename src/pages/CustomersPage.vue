@@ -1,62 +1,68 @@
 <template>
-    <b-container fluid>
-        <b-row>
-            <SideBar />
-            <b-col xl="10" lg="9" sm="9">
-                <HeaderComponent title="Customers" />
-                <b-container fluid class="pt-2">
-                    <b-row class="my-3">
-                        <!-- whole container-->
-                        <b-col class="py-2">
-                            <!-- left container-->
-                            <b-col class="">
-                                <b-container class="container-card rounded p-3">
-                                    <h4 class="px-3">Add Customers</h4>
-                                    <b-col class="mt-3">
-                                        <b-form>
-                                            <FormInput label="First Name" />
-                                            <FormInput label="Last Name" />
-                                            <FormInput label="Phone Number" />
-                                            <FormInput label="Address" />
-                                            <b-container class="button-container d-flex justify-content-end">
-                                                <b-button class="mr-2" type="reset">Reset</b-button>
-                                                <b-button variant="success" type="submit">Save</b-button>
-                                            </b-container>
-                                        </b-form>
-                                    </b-col>
-                                </b-container>
-                            </b-col>
-                        </b-col>
-                        <b-col md="12" lg="12" xl="9" class="py-2">
-                            <!-- left container-->
-                            <b-col class="table-container ">
-                                <b-container class="container-card rounded p-3">
-                                    <h5 class="px-3 mb-3">Customer Records</h5>
-                                    <b-table hover :items="listCustomers" :fields="fields">
-                                        <template v-slot:cell(actions)="{ item }">
-                                            <span>
-                                                <b-row class="d-flex justify-content-center">
-                                                    <b-btn class="mr-2" @click="editItem(item)">
-                                                        <b-icon class="edit-btn" icon="pencil-square"></b-icon>
-                                                    </b-btn>
-                                                    <DeleteModalComponent />
-                                                </b-row>
-                                            </span>
-                                        </template>
-                                    </b-table>
-                                    <!-- <b-table hover :items="itemsState" :fields="fields">
+  <b-container fluid>
+    <b-row>
+      <SideBar />
+      <b-col xl="10" lg="9" sm="9">
+        <HeaderComponent title="Customers" />
+        <b-container fluid class="pt-2">
+          <b-row class="my-3">
+            <!-- whole container-->
+            <b-col class="py-2">
+              <!-- left container-->
+              <b-col class="">
+                <b-container class="container-card rounded p-3">
+                  <h4 class="px-3">Add Customers</h4>
+                  <b-col class="mt-3">
+                    <b-form>
+                      <FormInput label="First Name" />
+                      <FormInput label="Last Name" />
+                      <FormInput label="Phone Number" />
+                      <FormInput label="Address" />
+                      <b-container
+                        class="button-container d-flex justify-content-end"
+                      >
+                        <b-button class="mr-2" type="reset">Reset</b-button>
+                        <b-button variant="success" type="submit"
+                          >Save</b-button
+                        >
+                      </b-container>
+                    </b-form>
+                  </b-col>
+                </b-container>
+              </b-col>
+            </b-col>
+            <b-col md="12" lg="12" xl="9" class="py-2">
+              <!-- left container-->
+              <b-col class="table-container">
+                <b-container class="container-card rounded p-3">
+                  <h5 class="px-3 mb-3">Customer Records</h5>
+                  <b-table hover :items="listCustomers" :fields="fields">
+                    <template v-slot:cell(actions)="{ item }">
+                      <span>
+                        <b-row class="d-flex justify-content-center">
+                          <b-btn class="mr-2" @click="editItem(item)">
+                            <b-icon
+                              class="edit-btn"
+                              icon="pencil-square"
+                            ></b-icon>
+                          </b-btn>
+                          <DeleteModalComponent />
+                        </b-row>
+                      </span>
+                    </template>
+                  </b-table>
+                  <!-- <b-table hover :items="itemsState" :fields="fields">
                                             <b-button variant="secondary" @click>Archive</b-button>
                                     </b-table> -->
-                                    <!-- <PaginationComponent /> -->
-                                </b-container>
-
-                            </b-col>
-                        </b-col>
-                    </b-row>
+                  <!-- <PaginationComponent /> -->
                 </b-container>
+              </b-col>
             </b-col>
-        </b-row>
-    </b-container>
+          </b-row>
+        </b-container>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -80,6 +86,15 @@ export default {
     async mounted() {
         return await this.$store.dispatch("fetchCustomersList");
     },
+//     async created() {
+//     //   axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
+//         const response = await axios.get("/customers", {
+//             headers: {
+//                 Authorization: localStorage.getItem("user")
+//             }
+//         })
+//         console.log(response)
+// },
     props: ["value"],
     model: {
         prop: "value",
@@ -113,15 +128,15 @@ export default {
 
 <style scoped>
 nav {
-    padding: 10px;
+  padding: 10px;
 }
 
 div.py-2 {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .edit-btn,
 .delete-btn {
-    color: #fff;
+  color: #fff;
 }
 </style>

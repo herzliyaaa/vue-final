@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_URL = "http://172.16.4.182:4000"
+import { API_URL } from "../../../config/dev.env";
+// const API_URL = "http://172.16.4.182:4000"
 
 export default {
   state: {
@@ -10,9 +11,14 @@ export default {
   },
 
   actions: {
-    async fetchCustomersList({ commit }) {
-      const response = await axios.get(`${API_URL}/customers`);
-      console.log(response.data)
+    async fetchCustomersList({ commit }, token) {
+      const response = await axios.get(`${API_URL}/customers`, {
+        headers: {
+          Authorization: localStorage.getItem(token),
+        },
+      });
+
+      console.log(response.data);
       commit("SET_CUSTOMERSLIST", response.data);
     },
   },
@@ -23,4 +29,3 @@ export default {
     },
   },
 };
-

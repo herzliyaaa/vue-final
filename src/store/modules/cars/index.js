@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://172.16.4.182:4000";
+import {API_URL} from "../../../config/dev.env"
 
 export default {
   state: {
