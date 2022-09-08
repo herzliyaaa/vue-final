@@ -2,40 +2,32 @@
   <div class="mb-3">
     <div class="mt-3 d-flex justify-content-center">
       <b-form class="d-flex flex-column">
-        <!-- <b-form class="d-flex flex-column" action="" @submit="login()">
-                          <LoginInputComponent v-model="id_number" label="ID Number" type="text" placeholder="Enter ID Number" />
-                          <LoginInputComponent v-model="password" label="Password" type="password" placeholder="Enter Password" />         
-                </b-form> -->
-        <!-- <LoginInputComponent
-                    label="ID Number"
-                    value="email"
-                    name="email"
-                    type="text"
-                    placeholder="Enter ID Number"
-                  />
-                  <LoginInputComponent
-                    label="Password"
-                    type="password"
-                    name="password"
-                    value="password"
-                    placeholder="Enter Password"
-                  /> -->
-
-        <input
-          label="ID Number"
-          v-model="email"
-          name="email"
-          type="text"
-          placeholder="Enter ID Number"
-        />
-        <input
-          label="Password"
-          type="password"
-          name="password"
-          v-model="password"
-          placeholder="Enter Password"
-        />
-
+        <div class="mb-3">
+          <div class="d-flex">
+            <label for="email" class="form-label ml-2">Email</label>
+          </div>
+          <input
+            label="ID Number"
+            v-model="email"
+            name="email"
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Enter ID Number"
+          />
+        </div>
+        <div class="mb-3">
+          <div class="d-flex">
+            <label for="email" class="form-label ml-2">Password</label>
+          </div>
+          <input
+            label="Password"
+            type="password"
+            name="password"
+            class="form-control form-control-lg"
+            v-model="password"
+            placeholder="Enter Password"
+          />
+        </div>
         <br />
         <div class="d-flex justify-content-center">
           <button
@@ -47,11 +39,6 @@
           </button>
         </div>
       </b-form>
-      <!-- <div class="d-flex justify-content-center">
-                  <button @click="handleLogin" class="col-12 btn btn-block">
-                    LOG IN
-                  </button>
-                </div> -->
     </div>
   </div>
 </template>
@@ -89,25 +76,21 @@ export default {
     };
   },
 
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    },
-  },
-
   // created() {
   //   if (this.loggedIn) {
   //     this.$router.push("/dashboard");
   //   }
   // },
+
   methods: {
     async handleLogin() {
       const user = { email: this.email, password: this.password };
-
       this.$store.dispatch("login", user).then(
         () => {
           if (user.email && user.password) {
-            this.$router.push("/customers");
+            console.log(user.email, user.password);
+            //TODO: REDIRECT TO CUSTOMERS PAGE WHEN LOGIN
+            // this.$router.push("/dashboard");
           }
         },
         (error) => {
