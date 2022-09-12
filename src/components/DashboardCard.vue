@@ -34,7 +34,7 @@ export default {
             type: String
         },
         value: {
-            type: String
+            type: Object.String
         }
     }
 }

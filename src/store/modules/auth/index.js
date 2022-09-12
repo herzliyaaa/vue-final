@@ -13,7 +13,6 @@ export default {
   },
   actions: {
     async login({ commit }, user) {
-      const userToken = localStorage.getItem('user')
       return await axios
         .post(`${LOCAL_URL}/login`, {
           email: user.email,
@@ -25,25 +24,21 @@ export default {
           }
           console.log(response.data);
           commit("loginSuccess", localStorage.getItem("user"));
-          console.log("eyyy" , userToken)
           return response.data;
         })
         .catch((error) => {
           commit("loginFailure", {userToken:null})
-          console.log("ERROR ");
+          console.log("Incomplete credentials!", error.message);
           return error.message;
         });
     },
     logout({ commit }) {
       localStorage.removeItem("user");
-
       commit("logout");
     },
   },
   mutations: {
-    SET_USER() {},
 
-    LOGOUT_USER() {},
 
     loginSuccess(state, user) {
       state.loggedIn = true;
@@ -54,7 +49,7 @@ export default {
       state.user = null;
     },
     logout(state) {
-      state.status.loggedIn = false;
+      state.loggedIn = false;
       state.user = null;
     },
     registerSuccess(state) {

@@ -90,7 +90,7 @@ export default {
           if (user.email && user.password) {
             console.log(user.email, user.password);
             //TODO: REDIRECT TO CUSTOMERS PAGE WHEN LOGIN
-            // this.$router.push("/dashboard");
+            this.$router.push("/dashboard");
           }
         },
         (error) => {
