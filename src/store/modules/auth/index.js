@@ -20,9 +20,10 @@ export default {
         })
         .then((response) => {
           if (response.data.token) {
+            localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data));
-          }
-          console.log(response.data);
+       
+          }  
           commit("loginSuccess", localStorage.getItem("user"));
           return response.data;
         })

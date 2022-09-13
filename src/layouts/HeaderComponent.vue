@@ -30,7 +30,7 @@
         <div>
           <b-avatar variant="secondary"></b-avatar>
           <b-dropdown
-            :text="currentUser.email"
+            :text="currentUser.firstname +` `+ currentUser.lastname"
             variant="secondary"
             class="user-dropdown m-2"
           >

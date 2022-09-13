@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <b-container fluid>
     <b-row>
@@ -46,7 +47,16 @@
                               icon="pencil-square"
                             ></b-icon>
                           </b-btn>
-                          <DeleteModalComponent />
+                          <b-btn
+                            class="mr-2"
+                            @click="deleteItem(item.customer_id)"
+                          >
+                            <b-icon
+                              class="edit-btn"
+                              icon="pencil-square"
+                            ></b-icon>
+                          </b-btn>
+                          <!-- <DeleteModalComponent /> -->
                         </b-row>
                       </span>
                     </template>
@@ -66,64 +76,75 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import SideBar from "../layouts/SideBar.vue"
-import HeaderComponent from "../layouts/HeaderComponent.vue"
-import FormInput from "../components/FormInput.vue"
-import DeleteModalComponent from "@/components/DeleteModalComponent.vue"
+import { mapGetters } from "vuex";
+import SideBar from "../layouts/SideBar.vue";
+import HeaderComponent from "../layouts/HeaderComponent.vue";
+import FormInput from "../components/FormInput.vue";
+// import DeleteModalComponent from "@/components/DeleteModalComponent.vue";
 
 export default {
-    name: "CarsPage",
-    components: {
-        SideBar,
-        HeaderComponent,
-        FormInput,
-        DeleteModalComponent,
+  name: "CustomersPage",
+  components: {
+    SideBar,
+    HeaderComponent,
+    FormInput,
+    // DeleteModalComponent,
+  },
+  computed: {
+    ...mapGetters({ listCustomers: "customersList" }),
+  },
+  async mounted() {
+    return await this.$store.dispatch("fetchCustomersList");
+  },
+  //     async created() {
+  //     //   axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
+  //         const response = await axios.get("/customers", {
+  //             headers: {
+  //                 Authorization: localStorage.getItem("user")
+  //             }
+  //         })
+  //         console.log(response)
+  // },
+  props: ["value"],
+  model: {
+    prop: "value",
+    event: "update",
+  },
+  data() {
+    return {
+      modalShow: false,
+      fields: [
+        { key: "customer_id", label: "ID" },
+        { key: "firstname", label: "First Name" },
+        { key: "lastname", label: "Last Name" },
+        { key: "contact", label: "Phone Number" },
+        { key: "address", label: "Address" },
+        { key: "actions", label: "Actions" },
+      ],
+      items: {
+        customer_id: null,
+        first_name: null,
+        last_name: null,
+        phone_number: null,
+        address: null,
+      },
+    };
+  },
+  methods: {
+    async deleteItem(customer_id) {
+      try {
+        console.log(customer_id);
+        await this.$store.dispatch("deleteCustomer", customer_id);
+        location.reload()
+      } catch (error) {
+        console.log(error);
+      }
     },
-    computed: {
-        ...mapGetters({ listCustomers: "customersList" }),
-    },
-    async mounted() {
-        return await this.$store.dispatch("fetchCustomersList");
-    },
-//     async created() {
-//     //   axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
-//         const response = await axios.get("/customers", {
-//             headers: {
-//                 Authorization: localStorage.getItem("user")
-//             }
-//         })
-//         console.log(response)
-// },
-    props: ["value"],
-    model: {
-        prop: "value",
-        event: "update"
-    },
-    data() {
-        return {
-            modalShow: false,
-            fields: [
-                { key: "customer_id", label: "ID" },
-                { key: "firstname", label: "First Name" },
-                { key: "lastname", label: "Last Name" },
-                { key: "contact", label: "Phone Number" },
-                { key: "address", label: "Address" },
-                { key: "actions", label: "Actions" }
-            ],
-            items: {
-                ID: null,
-                first_name: null,
-                last_name: null,
-                phone_number: null,
-                address: null
-            }
-        }
-    },
-    // async beforeCreate() {
-    //     await this.$store.dispatch("allCustomers").then(res => console.log(res));
-    // },
-}
+  },
+  // async beforeCreate() {
+  //     await this.$store.dispatch("allCustomers").then(res => console.log(res));
+  // },
+};
 </script>
 
 <style scoped>
