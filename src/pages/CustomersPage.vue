@@ -41,20 +41,74 @@
                     <template v-slot:cell(actions)="{ item }">
                       <span>
                         <b-row class="d-flex justify-content-center">
-                          <b-btn class="mr-2" @click="editItem(item)">
+                          <b-button v-b-modal  @click="showUpdateModal(item.customer_id)">
                             <b-icon
-                              class="edit-btn"
+                              class="delete-btn"
                               icon="pencil-square"
+                             
                             ></b-icon>
-                          </b-btn>
+                          </b-button>
+                          <!--! Update Modal -->
+                          <b-modal id="modal-form" title="Edit">
+                            <div>
+                              <div class="mb-3">
+                                <b-form-group
+                                  label="First Name"
+                                  id="label"
+                                  class="ml-2"
+                                >
+                                </b-form-group>
+                                <b-form-input
+                                  placeholder="Enter First Name"
+                                  v-model="item.firstname"
+                                ></b-form-input>
+                              </div>
+
+                              <div class="mb-3">
+                                <b-form-group
+                                  label="Last Name"
+                                  id="label"
+                                  class="ml-2"
+                                >
+                                </b-form-group>
+                                <b-form-input
+                                  placeholder="Enter Last Name"
+                                  v-model="item.lastname"
+                                ></b-form-input>
+                              </div>
+                              <div class="mb-3">
+                                <b-form-group
+                                  label="Phone Number"
+                                  id="label"
+                                  class="ml-2"
+                                >
+                                </b-form-group>
+                                <b-form-input
+                                  placeholder="Enter Number"
+                                  v-model="item.contact"
+                                ></b-form-input>
+                              </div>
+
+                              <div class="mb-3">
+                                <b-form-group
+                                  label="Address"
+                                  id="label"
+                                  class="ml-2"
+                                >
+                                </b-form-group>
+                                <b-form-input
+                                  placeholder="Enter Address"
+                                  v-model="item.address"
+                                ></b-form-input>
+                              </div>
+                            </div>
+                          </b-modal>
+
                           <b-btn
                             class="mr-2"
                             @click="deleteItem(item.customer_id)"
                           >
-                            <b-icon
-                              class="edit-btn"
-                              icon="pencil-square"
-                            ></b-icon>
+                            <b-icon class="edit-btn" icon="trash-fill"></b-icon>
                           </b-btn>
                           <!-- <DeleteModalComponent /> -->
                         </b-row>
@@ -121,26 +175,45 @@ export default {
         { key: "address", label: "Address" },
         { key: "actions", label: "Actions" },
       ],
-      items: {
+      item: {
         customer_id: null,
-        first_name: null,
-        last_name: null,
-        phone_number: null,
+        firstname: null,
+        lastname: null,
+        contact: null,
         address: null,
       },
     };
   },
   methods: {
+    showUpdateModal(item) {
+      console.log("data", this.item);
+      this.item = {
+        customer_id: item.customer_id,
+        firstname: item.firstname,
+        lastname: item.lastname,
+        contact: item.contact,
+        address: item.address,
+      };
+
+      this.$bvModal.show("modal-form");
+    },
+    
+    // async editItem(item) {
+    //   this.$bvModal.hide("update-job");
+
+    // },
+
     async deleteItem(customer_id) {
       try {
         console.log(customer_id);
         await this.$store.dispatch("deleteCustomer", customer_id);
-        location.reload()
+        location.reload();
       } catch (error) {
         console.log(error);
       }
     },
   },
+
   // async beforeCreate() {
   //     await this.$store.dispatch("allCustomers").then(res => console.log(res));
   // },

@@ -12,16 +12,31 @@ export default {
 
   actions: {
     async fetchCustomersList({ commit }) {
-       await axios.get(`${LOCAL_URL}/customers`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) =>{
-        this.customers = response.data;
-        commit("SET_CUSTOMERSLIST", response.data);
-      })
-      
+      await axios
+        .get(`${LOCAL_URL}/customers`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.customers = response.data;
+          commit("SET_CUSTOMERSLIST", response.data);
+        });
+    },
+
+    async editCustomer({ commit }, customer) {
+      await axios
+        .put(`${LOCAL_URL}/customers/delete/${customer.customer_id}`, {
+          firstname: customer.firstname,
+          lastname: customer.lastname,
+          contact: customer.contact,
+          address: customer.address,
+        })
+        .then((response) => {
+          commit("UPDATE_CUSTOMER", response.data);
+          console.log(response.data);
+          return response;
+        });
     },
 
     async deleteCustomer({ commit }, customer_id) {
