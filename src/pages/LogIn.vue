@@ -122,7 +122,6 @@ export default {
       const user = { email: this.email, password: this.password };
       this.$store.dispatch("login", user);
 
-      console.log("TEST LOG", this.email, this.password);
       // if (this.email && this.password) {
       //   this.$store.dispatch("login", user).then(
       //     () => {
@@ -141,6 +140,9 @@ export default {
       //   );
       // }
     },
+    logout(){
+      this.$store.dispatch("logout")
+    }
   },
 };
 </script>

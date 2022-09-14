@@ -2,7 +2,7 @@
     <div class="mb-3">
         <b-form-group :label="label" id="label" class="ml-2">
         </b-form-group>
-        <b-form-input :placeholder="'Enter ' + label" v-model="name"></b-form-input>
+        <b-form-input :placeholder="'Enter ' + label" :value="value"></b-form-input>
         <!-- <div class="mt-2">Value: {{ text }}</div> -->
     </div>
 </template>
@@ -18,7 +18,11 @@ export default {
     props: {
         label: {
             type: String
+        },
+        value: {
+            type: String
         }
+
     }
 }
 </script>

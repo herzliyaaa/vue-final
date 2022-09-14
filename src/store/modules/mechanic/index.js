@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://172.16.4.182:4000";
+import { API_URL } from "../../../config/dev.env"
 
 export default {
   state: {
@@ -11,14 +11,14 @@ export default {
 
   actions: {
     async fetchMechanicsList({ commit }) {
-      const response = await axios.get(`${API_URL}/mechanics`);
+      const response = await axios.get(`${API_URL}/mechanic`);
       console.log(response.data);
       commit("SET_MECHANICSLIST", response.data);
     },
   },
 
   mutations: {
-    SET_CARSLIST(state, mechanics) {
+    SET_MECHANICLIST(state, mechanics) {
       state.mechanics = mechanics;
     },
   },

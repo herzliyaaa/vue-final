@@ -12,19 +12,19 @@
                   title="Sales"
                   icon="cart4"
                   description="Total Sales"
-                  value="423"
+                  :value="salesPerMonth"
                 />
                 <DashboardCard
                   title="Revenue"
                   icon="currency-dollar"
                   description="Total Profit"
-                  value="$5435"
+                  :value="monthlyRevenuelist"
                 />
                 <DashboardCard
                   title="Customers"
                   icon="people"
                   description="Customers"
-                  value="453"
+                  :value="listCustomersPerMonth"
                 />
               </b-row>
               <b-row class="mt-5 d-flex flex-column justify-content-between">
@@ -74,9 +74,15 @@ export default {
 
   computed: {
     ...mapGetters({ listTopSellers: "topSellersList" }),
+    ...mapGetters({ salesPerMonth: "monthlySalesRecord" }),
+    ...mapGetters({ monthlyRevenuelist: "monthlyRevenueRecord" }),
+    ...mapGetters({ listCustomersPerMonth: "monthlyCustomersRecord" }),
   },
-  async mounted() {
-    return await this.$store.dispatch("fetchTopSellersList");
+  mounted() {
+    this.$store.dispatch("fetchTopSellersList");
+    this.$store.dispatch("fetchMonthlySales");
+    this.$store.dispatch("fetchMonthlyRevenue");
+    this.$store.dispatch("fetchMonthlyCustomer");
   },
 
   data() {

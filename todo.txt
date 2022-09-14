@@ -1,8 +1,30 @@
+//TODO:
+
 [] fix delete confirmation
-[] fetch dashboard data
-[] add cars and etc
-[] auth in vue 
+[/] fetch dashboard data
+[/] add cars and etc
+[/] auth in vue 
 [] pick modal for the car and customer in service ticket
 [] pick modal for the car and customer in invoice
 [] edit modal in cars and etc
 [] print function in invoice
+
+//* Breakdown of the bug fixes: 
+
+[] Restriction if the email and password are incorrect.
+    * The user cannot access the other page once the credentials are not correct or in empty fields.
+
+[] Get the state authenticated to verify the user access to the protected routes.
+
+//* Notes: 
+
+Hard
+
+* The user is already authenticated once the user enters the credentials. Hence, it also accepts the incorrect credentials to be authenticated 
+ which change the state authenticated into true.
+
+* The token can be saved in local storage, yet there is no function or logic to get the token to the protected routes.
+
+* 
+
+

@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import cars from "./modules/cars";
 import customers from "./modules/customers";
 import dashboard from "./modules/dashboard"
+import salesperson from "./modules/salesperson"
 import auth from "./modules/auth";
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
     cars,
     customers,
     dashboard,
+    salesperson,
     auth
   },
 });
