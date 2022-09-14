@@ -3,13 +3,13 @@
 /* eslint-disable */
 
 import axios from "axios";
+import router from "../../../router/index";
 import { API_URL, LOCAL_URL } from "../../../config/dev.env";
 
 export default {
-  // namespaced: true,
   state: {
-    users: {},
-    loggedIn: false
+    user: {},
+    loggedIn: false,
   },
   actions: {
     async login({ commit }, user) {
@@ -22,25 +22,25 @@ export default {
           if (response.data.token) {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data));
-       
-          }  
+            router.push("/dashboard");
+          }
+  
           commit("loginSuccess", localStorage.getItem("user"));
           return response.data;
         })
         .catch((error) => {
-          commit("loginFailure", {userToken:null})
-          console.log("Incomplete credentials!", error.message);
+          commit("loginFailure", { user: null });
+          console.log("Invalid credentials!", error);
           return error.message;
         });
     },
     logout({ commit }) {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       commit("logout");
     },
   },
   mutations: {
-
-
     loginSuccess(state, user) {
       state.loggedIn = true;
       state.user = user;
