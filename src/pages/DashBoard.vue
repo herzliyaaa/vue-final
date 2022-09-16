@@ -1,5 +1,6 @@
 <template>
   <b-container fluid>
+    <SpinnerLoad />
     <b-row>
       <SideBar />
       <b-col xl="10" lg="9" sm="9">
@@ -62,6 +63,7 @@
 import SideBar from "../layouts/SideBar.vue";
 import HeaderComponent from "../layouts/HeaderComponent.vue";
 import DashboardCard from "@/components/DashboardCard.vue";
+import SpinnerLoad from "../components/SpinnerLoad.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -70,6 +72,7 @@ export default {
     HeaderComponent,
     SideBar,
     DashboardCard,
+    SpinnerLoad,
   },
 
   computed: {

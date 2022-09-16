@@ -41,68 +41,12 @@
                     <template v-slot:cell(actions)="{ item }">
                       <span>
                         <b-row class="d-flex justify-content-center">
-                          <b-button v-b-modal  @click="showUpdateModal(item.customer_id)">
+                          <b-button v-b-modal @click="showUpdateModal(item)">
                             <b-icon
                               class="delete-btn"
                               icon="pencil-square"
-                             
                             ></b-icon>
                           </b-button>
-                          <!--! Update Modal -->
-                          <b-modal id="modal-form" title="Edit">
-                            <div>
-                              <div class="mb-3">
-                                <b-form-group
-                                  label="First Name"
-                                  id="label"
-                                  class="ml-2"
-                                >
-                                </b-form-group>
-                                <b-form-input
-                                  placeholder="Enter First Name"
-                                  v-model="item.firstname"
-                                ></b-form-input>
-                              </div>
-
-                              <div class="mb-3">
-                                <b-form-group
-                                  label="Last Name"
-                                  id="label"
-                                  class="ml-2"
-                                >
-                                </b-form-group>
-                                <b-form-input
-                                  placeholder="Enter Last Name"
-                                  v-model="item.lastname"
-                                ></b-form-input>
-                              </div>
-                              <div class="mb-3">
-                                <b-form-group
-                                  label="Phone Number"
-                                  id="label"
-                                  class="ml-2"
-                                >
-                                </b-form-group>
-                                <b-form-input
-                                  placeholder="Enter Number"
-                                  v-model="item.contact"
-                                ></b-form-input>
-                              </div>
-
-                              <div class="mb-3">
-                                <b-form-group
-                                  label="Address"
-                                  id="label"
-                                  class="ml-2"
-                                >
-                                </b-form-group>
-                                <b-form-input
-                                  placeholder="Enter Address"
-                                  v-model="item.address"
-                                ></b-form-input>
-                              </div>
-                            </div>
-                          </b-modal>
 
                           <b-btn
                             class="mr-2"
@@ -110,14 +54,10 @@
                           >
                             <b-icon class="edit-btn" icon="trash-fill"></b-icon>
                           </b-btn>
-                          <!-- <DeleteModalComponent /> -->
                         </b-row>
                       </span>
                     </template>
                   </b-table>
-                  <!-- <b-table hover :items="itemsState" :fields="fields">
-                                            <b-button variant="secondary" @click>Archive</b-button>
-                                    </b-table> -->
                   <!-- <PaginationComponent /> -->
                 </b-container>
               </b-col>
@@ -126,10 +66,51 @@
         </b-container>
       </b-col>
     </b-row>
+
+    <!--! Update Modal -->
+    <b-modal id="modal-form" title="Edit" @ok="editItem">
+      <div>
+        <div class="mb-3">
+          <b-form-group label="First Name" id="label" class="ml-2">
+          </b-form-group>
+          <b-form-input
+            placeholder="Enter First Name"
+            v-model="item.firstname"
+          ></b-form-input>
+        </div>
+
+        <div class="mb-3">
+          <b-form-group label="Last Name" id="label" class="ml-2">
+          </b-form-group>
+          <b-form-input
+            placeholder="Enter Last Name"
+            v-model="item.lastname"
+          ></b-form-input>
+        </div>
+        <div class="mb-3">
+          <b-form-group label="Phone Number" id="label" class="ml-2">
+          </b-form-group>
+          <b-form-input
+            placeholder="Enter Number"
+            v-model="item.contact"
+          ></b-form-input>
+        </div>
+
+        <div class="mb-3">
+          <b-form-group label="Address" id="label" class="ml-2"> </b-form-group>
+          <b-form-input
+            placeholder="Enter Address"
+            v-model="item.address"
+          ></b-form-input>
+        </div>
+      </div>
+    </b-modal>
+    <!--! End of Update Modal -->
   </b-container>
 </template>
 
 <script>
+/* eslint-disable */
 import { mapGetters } from "vuex";
 import SideBar from "../layouts/SideBar.vue";
 import HeaderComponent from "../layouts/HeaderComponent.vue";
@@ -150,15 +131,7 @@ export default {
   async mounted() {
     return await this.$store.dispatch("fetchCustomersList");
   },
-  //     async created() {
-  //     //   axios.defaults.headers.common["Authorization"] = localStorage.getItem("user");
-  //         const response = await axios.get("/customers", {
-  //             headers: {
-  //                 Authorization: localStorage.getItem("user")
-  //             }
-  //         })
-  //         console.log(response)
-  // },
+
   props: ["value"],
   model: {
     prop: "value",
@@ -186,7 +159,6 @@ export default {
   },
   methods: {
     showUpdateModal(item) {
-      console.log("data", this.item);
       this.item = {
         customer_id: item.customer_id,
         firstname: item.firstname,
@@ -194,12 +166,11 @@ export default {
         contact: item.contact,
         address: item.address,
       };
-
       this.$bvModal.show("modal-form");
     },
-    
+
     // async editItem(item) {
-    //   this.$bvModal.hide("update-job");
+    //   this.$bvModal.hide("modal-form");
 
     // },
 
@@ -207,6 +178,17 @@ export default {
       try {
         console.log(customer_id);
         await this.$store.dispatch("deleteCustomer", customer_id);
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async editItem() {
+      try {
+        console.log();
+        await this.$store.dispatch("editCustomer", this.item);
+        this.$bvModal.hide("modal-form");
         location.reload();
       } catch (error) {
         console.log(error);

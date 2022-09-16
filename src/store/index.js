@@ -5,6 +5,7 @@ import customers from "./modules/customers";
 import dashboard from "./modules/dashboard"
 import salesperson from "./modules/salesperson"
 import auth from "./modules/auth";
+import invoice from "./modules/invoice"
 Vue.use(Vuex);
 
 /* eslint-disable no-new */
@@ -14,6 +15,7 @@ const store = new Vuex.Store({
     customers,
     dashboard,
     salesperson,
+    invoice,
     auth
   },
 });
