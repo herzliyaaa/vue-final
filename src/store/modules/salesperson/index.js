@@ -6,11 +6,11 @@ export default {
     salespersonList: [],
   },
   getters: {
-    getSalespersonList: (state) => state.mechanics,
+    getSalespersonList: (state) => state.salespersonList,
   },
 
   actions: {
-    async fetchMechanicsList({ commit }) {
+    async fetchSalespersonList({ commit }) {
       const response = await axios.get(`${LOCAL_URL}/salesperson`);
       console.log(response.data);
       commit("SET_SALESPERSONLIST", response.data);
@@ -18,7 +18,7 @@ export default {
   },
 
   mutations: {
-    SET_MECHANICLIST(state, salespersonList) {
+    SET_SALESPERSONLIST(state, salespersonList) {
       state.salespersonList = salespersonList;
     },
   },

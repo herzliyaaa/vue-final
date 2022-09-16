@@ -26,7 +26,7 @@ export default {
 
     async editCustomer({ commit }, customer) {
       await axios
-        .put(`${LOCAL_URL}/customers/delete/${customer.customer_id}`, {
+        .put(`${LOCAL_URL}/customers/edit/${customer.customer_id}`, {
           firstname: customer.firstname,
           lastname: customer.lastname,
           contact: customer.contact,
@@ -59,6 +59,16 @@ export default {
       );
       console.log(index);
       state.customers.splice(index, 0);
+    },
+
+    UPDATE_CUSTOMER(state, data) {
+      let index = state.customers.map((val, ind) => {
+        if (val.id == data.id) {
+          return ind;
+        }
+      });
+      let ind = index.filter((item) => item != undefined);
+      state.customers[ind] = data;
     },
   },
 };
