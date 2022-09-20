@@ -18,7 +18,7 @@ export default {
   },
 
   mutations: {
-    SET_MECHANICLIST(state, mechanics) {
+    SET_MECHANICSLIST(state, mechanics) {
       state.mechanics = mechanics;
     },
   },
