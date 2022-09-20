@@ -54,6 +54,46 @@
                       </b-form-select>
                     </div>
 
+                    <div class="mb-3">
+                      <b-form-group
+                        label="Salesperson"
+                        id="salesperson"
+                        class="ml-2"
+                      >
+                        <b-button v-b-modal.sales-modal>Select</b-button>
+                      </b-form-group>
+                    </div>
+
+                    <b-modal id="sales-modal" title="Salesperson" centered>
+                      <b-row class="d-flex justify-content-center">
+                        <b-table
+                          hover
+                          :items="listSalesperson"
+                          :fields="salespersonFields"
+                          ref="selectableTable"
+                          selectable
+                          @row-selected="onRowSelected"
+                        >
+                          <template v-slot:cell(actions)="invoice">
+                            <!-- <b-form-group>
+                              <input
+                                type="radio"
+                                v-model="invoice.salesperson_id"
+                              />
+                            </b-form-group> -->
+                            <template v-if="invoice">
+                              <span aria-hidden="true">&check;</span>
+                              <span class="sr-only">Selected</span>
+                            </template>
+                            <template v-else>
+                              <span aria-hidden="true">&nbsp;</span>
+                              <span class="sr-only">Not selected</span>
+                            </template>
+                          </template>
+                        </b-table>
+                      </b-row>
+                    </b-modal>
+
                     <!-- @select dropdown for customer -->
                     <div class="mb-3">
                       <b-form-group label="Customer" id="customer" class="ml-2">
@@ -176,6 +216,19 @@ export default {
         { key: "customer_name", label: "Customer Name" },
         { key: "serial_number", label: "Serial Number" },
       ],
+      salespersonFields: [
+        { key: "salesperson_id", label: "Invoice Number" },
+        {
+          key: "created_at",
+          label: "Invoice Date",
+          formatter: (value) => {
+            return moment(value).format("MMM DD, YYYY, h:mm A");
+          },
+        },
+        { key: "firstname", label: "Salesperson Name" },
+        { key: "lastname", label: "Customer Name" },
+        { key: "actions", label: "Actions" },
+      ],
     };
   },
 
@@ -184,16 +237,34 @@ export default {
       await this.$store.dispatch("createInvoice", this.invoice);
       location.reload();
     },
+
+    selectSalesperson(salesperson_id) {
+      console.log(salesperson_id);
+    },
+
+    onRowSelected(listSalesperson) {
+      this.selected = listSalesperson;
+    },
   },
 };
 </script>
 
-<style scoped>
+<style>
 nav {
   padding: 10px;
 }
 
 div.py-2 {
   padding: 0 !important;
+}
+
+#sales-modal.modal.fade.show {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+#sales-modal___BV_modal_content_.modal-content {
+  width: 1200px !important;
+  display: flex !important;
 }
 </style>

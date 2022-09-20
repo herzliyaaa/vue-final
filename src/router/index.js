@@ -10,7 +10,7 @@ import MechanicPage from "../pages/MechanicPage.vue";
 import ServiceTicketPage from "../pages/ServiceTicketPage.vue";
 import AddCar from "../pages/AddCar.vue";
 import AddServiceTicket from "../pages/AddServiceTicket.vue";
-
+import PageNotFound from "../pages/PageNotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -69,7 +69,11 @@ const routes = [
     path: "/add-service-ticket",
     name: "AddServiceTicket",
     component: AddServiceTicket
-  }
+  },
+  {
+    path: "*",
+    name: "PageNotFound",
+    component: PageNotFound }
 
 ];
 
