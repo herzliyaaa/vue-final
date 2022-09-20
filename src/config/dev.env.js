@@ -1,4 +1,5 @@
-const API_URL = "http://172.16.4.182:4000";
+// const API_URL = "http://172.16.4.182:4000";
+const API_URL = "http://localhost:5000";
 const LOCAL_URL = "http://localhost:5000";
 const NETWORK_URL = "http://localhost:4000";
 
