@@ -11,14 +11,14 @@ export default {
 
   actions: {
     async fetchCarsList({ commit }) {
-      const response = await axios.get(`${LOCAL_URL}/cars`);
+      const response = await axios.get(`${LOCAL_URL}/car`);
       console.log(response.data);
       commit("SET_CARSLIST", response.data);
     },
 
     //TODO: ADD Car
     async addCar({ commit }, data) {
-      const response = await axios.post(`${LOCAL_URL}/cars/add`, {
+      const response = await axios.post(`${LOCAL_URL}/car/add`, {
         serial_number: data.serial_number,
         brand: data.brand,
         model: data.model,

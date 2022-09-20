@@ -13,7 +13,7 @@ export default {
   actions: {
     async fetchCustomersList({ commit }) {
       await axios
-        .get(`${LOCAL_URL}/customers`, {
+        .get(`${LOCAL_URL}/customer`, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -26,7 +26,7 @@ export default {
 
     async editCustomer({ commit }, customer) {
       await axios
-        .put(`${LOCAL_URL}/customers/edit/${customer.customer_id}`, {
+        .put(`${LOCAL_URL}/customer/edit/${customer.customer_id}`, {
           firstname: customer.firstname,
           lastname: customer.lastname,
           contact: customer.contact,
@@ -41,7 +41,7 @@ export default {
 
     async deleteCustomer({ commit }, customer_id) {
       const response = await axios.patch(
-        `${LOCAL_URL}/customers/delete/${customer_id}`
+        `${LOCAL_URL}/customer/delete/${customer_id}`
       );
       console.log(localStorage.getItem("token"));
       commit("DELETE_CUSTOMER", response.data);

@@ -6,15 +6,15 @@
 [/] auth in vue 
 [] pick modal for the car and customer in service ticket
 [] pick modal for the car and customer in invoice
-[] edit modal in cars and etc
+[/] edit modal in cars and etc
 [] print function in invoice
 
 //* Breakdown of the bug fixes: 
 
-[] Restriction if the email and password are incorrect.
+[/] Restriction if the email and password are incorrect.
     * The user cannot access the other page once the credentials are not correct or in empty fields.
 
-[] Get the state authenticated to verify the user access to the protected routes.
+[/] Get the state authenticated to verify the user access to the protected routes.
 
 //* Notes: 
 
